@@ -39,7 +39,7 @@ local selection = game:GetService("Selection")
 publishItem.Click:Connect(function()
     submitWidget.Enabled = not submitWidget.Enabled
     if submitWidget.Enabled == true then
-        connection = selection.SelectionChanged:Connect(function()
+        local function selectionChange()
             local package = selection:Get()[1]
             if not package then
                 SubmitUI.YourName.Visible = false
@@ -55,7 +55,9 @@ publishItem.Click:Connect(function()
                 SubmitUI.Title2.Visible = true
                 SubmitUI.Submit.Visible = true
             end
-        end)
+        end
+        connection = selection.SelectionChanged:Connect(selectionChange)
+        selectionChange()
     else
         if connection then
             connection:Disconnect()
