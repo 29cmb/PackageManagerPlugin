@@ -7,7 +7,7 @@ local widgetInfo  = DockWidgetPluginGuiInfo.new(Enum.InitialDockState.Left,
     300
 )
 
-local apiURL = "libapi.devcmb.online"
+local apiURL = "https://libapi.devcmb.online"
 local serializer = require(script.Parent.Framework.Serializer)
 
 local toolbar = plugin:CreateToolbar("Library Manager")
@@ -28,7 +28,20 @@ end)
 
 
 UI.LoadPackage.MouseButton1Click:Connect(function()
-    httpService:PostAsync(apiURL .. "/download", httpService:JSONEncode({
+    local response = httpService:PostAsync(apiURL .. "/download", httpService:JSONEncode({
         ["ID"] = UI.PackageName.Text
     }))
+
+    local decoded = httpService:JSONDecode(response)
+    if decoded then
+        local packages
+        if game.ReplicatedStorage:FindFirstChild("LibMgrPackages") then
+            packages = game.ReplicatedStorage:FindFirstChild("LibMgrPackages")
+        else
+            packages = Instance.new("Folder", game.ReplicatedStorage)
+            packages.Name = "LibMgrPackages"
+        end
+
+        serializer:Deserialize(decoded, packages)
+    end
 end)
