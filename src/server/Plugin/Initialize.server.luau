@@ -7,6 +7,8 @@ local widgetInfo  = DockWidgetPluginGuiInfo.new(Enum.InitialDockState.Left,
     300
 )
 
+local apiURL = "libapi.devcmb.online"
+
 local toolbar = plugin:CreateToolbar("Library Manager")
 local enterIdButton = toolbar:CreateButton("Enter ID from website", "Enter ID from website", "rbxassetid://395920720")
 enterIdButton.ClickableWhenViewportHidden = true
