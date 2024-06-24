@@ -89,7 +89,7 @@ function refresh()
 
             local DeserializedLib = serializer:Deserialize(library.Serialized, location)
             selection:Add({DeserializedLib})
-            
+
             if DeserializedLib:IsA("Script") or DeserializedLib:IsA("ModuleScript") then
                 plugin:OpenScript(DeserializedLib)
             end
@@ -97,7 +97,11 @@ function refresh()
             browseWidget.Enabled = false
         end))
     end
-    
+
+    local scrollingFrame = LibrariesUI.Libraries
+	local constraint = scrollingFrame.UIGridLayout
+
+	scrollingFrame.CanvasSize = UDim2.new(0, constraint.AbsoluteContentSize.X + 20, 0, constraint.AbsoluteContentSize.Y) 
 end
 
 refresh()
