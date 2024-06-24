@@ -358,7 +358,6 @@ return {
         "Archivable",
         "Active",
         "AnchorPoint",
-        "AutoButtonColor",
         "BackgroundColor3",
         "BackgroundTransparency",
         "BorderColor3",
@@ -533,6 +532,126 @@ return {
         -- Data
         "Archivable",
         "Enabled",
+        "Name"
+    },
+    -- Value bases
+    ["BoolValue"] = {
+        "Archivable",
+        "Name",
+        "Value"
+    },
+    ["BrickColorValue"] = {
+        "Archivable",
+        "Name",
+        "Value"
+    },
+    ["Color3Value"] = {
+        "Archivable",
+        "Name",
+        "Value"
+    },
+    ["IntValue"] = {
+        "Archivable",
+        "Name",
+        "Value"
+    },
+    ["NumberValue"] = {
+        "Archivable",
+        "Name",
+        "Value"
+    },
+    ["StringValue"] = {
+        "Archivable",
+        "Name",
+        "Value"
+    },
+    ["Vector3Value"] = {
+        "Archivable",
+        "Name",
+        "Value"
+    },
+    ["ClickDetector"] = {
+        "Archivable",
+        "MaxActivationDistance",
+        "Name",
+        "CursorIcon"
+    },
+    ["Decal"] = {
+        "Color3",
+        "Texture",
+        "Transparency",
+        "ZIndex",
+        "Archivable",
+        "Face",
+        "Name"
+    },
+    ["DragDetector"] = {
+        "Archivable",
+        "MaxActivationDistance",
+        "Name",
+        "ReferenceInstance",
+        "DragStyle",
+        "Enabled",
+        "PermissionPolicy",
+        "ResponseStyle",
+        "RunLocally",
+        "Axis",
+        "Orientation",
+        "SecondaryAxis",
+        "WorldAxis",
+        "WorldSecondaryAxis",
+        "MaxDragAngle",
+        "MaxDragTranslation",
+        "MinDragAngle",
+        "MinDragTranslation",
+        "ActivatedCursorIcon",
+        "CursorIcon",
+        "GamepadModeSwitchKeyCode",
+        "KeyboardModeSwitchKeyCode",
+        "VRSwitchKeyCode",
+        "ApplyAtCenterOfMass",
+        "MaxForce",
+        "MaxTorque",
+        "Responsiveness"
+    },
+    ["MaterialVariant"] = {
+        "BaseMaterial",
+        "ColorMap",
+        "MetalnessMap",
+        "NormalMap",
+        "RoughnessMap",
+        "MaterialPattern",
+        "StudsPerTile",
+        "Archivable",
+        "Name"
+    },
+    ["ProximityPrompt"] = {
+        "Archivable",
+        "ActionText",
+        "ClickablePrompt",
+        "Enabled",
+        "Exclusivity",
+        "GamepadKeyCode",
+        "HoldDuration",
+        "KeyboardKeyCode",
+        "MaxActivationDistance",
+        "Name",
+        "ObjectText",
+        "RequiresLineOfSight",
+        "Style",
+        "UIOffset"
+    },
+    ["Texture"] = {
+        "Color3",
+        "OffsetStudsU",
+        "OffsetStudsV",
+        "StudsPerTileU",
+        "StudsPerTileV",
+        "Texture",
+        "Transparency",
+        "ZIndex",
+        "Archivable",
+        "Face",
         "Name"
     }
 }
