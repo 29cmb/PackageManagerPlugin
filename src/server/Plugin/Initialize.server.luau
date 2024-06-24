@@ -72,8 +72,22 @@ function refresh()
     for _,library in pairs(libs) do
         local template = LibrariesUI.Libraries.Template:Clone()
         template.Parent = LibrariesUI.Libraries
+        template.Visible = true
+        template.Name = "Library"
         template.Title.Text = library.Name
         template.Description.Text = library.Description
+        table.insert(installConnections, template.Install.MouseButton1Click:Connect(function()
+            local location
+            if game.ReplicatedStorage:FindFirstChild("LibMgrPackages") then
+                location = game.ReplicatedStorage:FindFirstChild("LibMgrPackages")
+            else
+                location = Instance.new("Folder", game.ReplicatedStorage)
+                location.Name = "LibMgrPackages"
+            end
+
+            serializer:Deserialize(library.Serialized, location)
+            browseWidget.Enabled = false
+        end))
     end
     
 end
