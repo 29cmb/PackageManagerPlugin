@@ -101,7 +101,7 @@ function refresh()
     local scrollingFrame = LibrariesUI.Libraries
 	local constraint = scrollingFrame.UIGridLayout
 
-	scrollingFrame.CanvasSize = UDim2.new(0, 0, 0, constraint.AbsoluteContentSize.Y + 30) 
+	scrollingFrame.CanvasSize = UDim2.new(0, 0, 0.25, constraint.AbsoluteContentSize.Y)
 end
 
 refresh()
