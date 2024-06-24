@@ -13,6 +13,8 @@ local serializer = require(script.Parent.Framework.Serializer)
 local toolbar = plugin:CreateToolbar("Library Manager")
 local enterIdButton = toolbar:CreateButton("Enter ID from website", "Enter ID from website", "rbxassetid://395920720")
 local publishItem = toolbar:CreateButton("Upload package", "Upload package", "rbxassetid://18182974747")
+local browseButton = toolbar:CreateButton("Browse", "Find libraries", "rbxassetid://18190464760")
+browseButton.ClickableWhenViewportHidden = true
 enterIdButton.ClickableWhenViewportHidden = true
 
 local httpService = game:GetService("HttpService")
@@ -23,47 +25,59 @@ widget.Title = "Libraries"
 local submitWidget = plugin:CreateDockWidgetPluginGui("Submit", widgetInfo)
 submitWidget.Title = "Submit"
 
+local browseWidget = plugin:CreateDockWidgetPluginGui("Browse", widgetInfo)
+browseWidget.Title = "Browse"
+
 local UI : Frame = script.Parent.UI:WaitForChild("EnterID")
 UI.Parent = widget
 
 local SubmitUI: Frame = script.Parent.UI:WaitForChild("SubmitUI")
 SubmitUI.Parent = submitWidget
 
+local LibrariesUI: Frame = script.Parent.UI:WaitForChild("LibrariesUI")
+LibrariesUI.Parent = browseWidget
+
 enterIdButton.Click:Connect(function()
     widget.Enabled = not widget.Enabled
 end)
-
-local connection
 local selection = game:GetService("Selection")
 
 publishItem.Click:Connect(function()
     submitWidget.Enabled = not submitWidget.Enabled
-    if submitWidget.Enabled == true then
-        local function selectionChange()
-            local package = selection:Get()[1]
-            if not package then
-                SubmitUI.YourName.Visible = false
-                SubmitUI.Description.Visible = false
-                SubmitUI.Submitted.Visible = false
-                SubmitUI.Title2.Visible = false
-                SubmitUI.Submit.Visible = false
-                SubmitUI.Selected.Text = "[Nothing Selected]"
-            else
-                SubmitUI.Selected.Text = package.Name
-                SubmitUI.YourName.Visible = true
-                SubmitUI.Description.Visible = true
-                SubmitUI.Title2.Visible = true
-                SubmitUI.Submit.Visible = true
-            end
-        end
-        connection = selection.SelectionChanged:Connect(selectionChange)
-        selectionChange()
-    else
-        if connection then
-            connection:Disconnect()
-        end
+end)
+
+browseButton.Click:Connect(function()
+    browseWidget.Enabled = not browseWidget.Enabled
+
+    if browseWidget.Enabled == true then
+        refresh()
     end
 end)
+
+function refresh()
+    
+end
+
+local function selectionChange()
+    local package = selection:Get()[1]
+    if not package then
+        SubmitUI.YourName.Visible = false
+        SubmitUI.Description.Visible = false
+        SubmitUI.Submitted.Visible = false
+        SubmitUI.Title2.Visible = false
+        SubmitUI.Submit.Visible = false
+        SubmitUI.Selected.Text = "[Nothing Selected]"
+    else
+        SubmitUI.Selected.Text = package.Name
+        SubmitUI.YourName.Visible = true
+        SubmitUI.Description.Visible = true
+        SubmitUI.Title2.Visible = true
+        SubmitUI.Submit.Visible = true
+    end
+end
+
+selection.SelectionChanged:Connect(selectionChange)
+selectionChange()
 
 local debounce = false
 SubmitUI.Submit.MouseButton1Click:Connect(function()
@@ -97,7 +111,7 @@ SubmitUI.Submit.MouseButton1Click:Connect(function()
             end)
         end
     end
-    
+
 end)
 
 UI.LoadPackage.MouseButton1Click:Connect(function()
