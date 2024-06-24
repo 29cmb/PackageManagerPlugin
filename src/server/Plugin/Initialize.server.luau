@@ -79,6 +79,14 @@ function refresh()
         template.Author.Text = "Made by " .. library.Author
 
         table.insert(installConnections, template.Install.MouseButton1Click:Connect(function()
+
+            local response = httpService:PostAsync(apiURL .. "/download", httpService:JSONEncode({
+                ["ID"] = library.ID
+            }))
+
+            local decoded = httpService:JSONDecode(response)
+            if not decoded then return end
+
             local location
             if game.ReplicatedStorage:FindFirstChild("LibMgrPackages") then
                 location = game.ReplicatedStorage:FindFirstChild("LibMgrPackages")
@@ -87,7 +95,7 @@ function refresh()
                 location.Name = "LibMgrPackages"
             end
 
-            local DeserializedLib = serializer:Deserialize(library.Serialized, location)
+            local DeserializedLib = serializer:Deserialize(decoded, location)
             selection:Add({DeserializedLib})
 
             if DeserializedLib:IsA("Script") or DeserializedLib:IsA("ModuleScript") then
