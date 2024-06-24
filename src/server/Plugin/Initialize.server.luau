@@ -64,6 +64,12 @@ function refresh()
         end
     end
 
+    for _,connection in pairs(installConnections) do 
+        connection:Disconnect()
+    end
+
+    table.clear(installConnections)
+
     local libs = httpService:GetAsync(apiURL .. "/libs")
     libs = httpService:JSONDecode(libs)
 
