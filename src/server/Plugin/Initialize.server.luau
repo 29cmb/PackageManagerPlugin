@@ -1,3 +1,4 @@
+--!nocheck
 local widgetInfo  = DockWidgetPluginGuiInfo.new(Enum.InitialDockState.Left,
 	false,
 	false,
@@ -54,10 +55,30 @@ browseButton.Click:Connect(function()
     end
 end)
 
+local installConnections = {}
+
 function refresh()
+    for _,v in pairs(LibrariesUI.Libraries:GetChildren()) do
+        if v:IsA("Frame") and v.Name ~= "Template" then
+            v:Destroy()
+        end
+    end
+
+    local libs = httpService:GetAsync(apiURL .. "/libs")
+    libs = httpService:JSONDecode(libs)
+
+    if not libs then return end
+
+    for _,library in pairs(libs) do
+        local template = LibrariesUI.Libraries.Template:Clone()
+        template.Parent = LibrariesUI.Libraries
+        template.Title.Text = library.Name
+        template.Description.Text = library.Description
+    end
     
 end
 
+refresh()
 local function selectionChange()
     local package = selection:Get()[1]
     if not package then
