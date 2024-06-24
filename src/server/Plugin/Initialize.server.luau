@@ -65,7 +65,40 @@ publishItem.Click:Connect(function()
     end
 end)
 
+local debounce = false
+SubmitUI.Submit.MouseButton1Click:Connect(function()
+    if debounce == false then
+        debounce = true
+        local Author = SubmitUI.YourName
+        local Description = SubmitUI.Description
+        local Package = selection:Get()[1]
 
+        if not Package then return end
+
+        local success, err = pcall(function()
+            httpService:PostAsync(apiURL .. "/postLib", httpService:JSONEncode({
+                ["Name"] = Package.Name,
+                ["Author"] = Author.Text,
+                ["Description"] = Description.Text,
+                ["Serialized"] = httpService:JSONEncode(serializer:Serialize(Package))
+            }))
+        end)
+
+        if not success then
+            warn("Could not upload package:", err)
+            SubmitUI.Submitted.Text = "Error submitting package"
+            SubmitUI.Submitted.Visible = true
+            debounce = false
+        else
+            SubmitUI.Submitted.Text = "Submitted Successfully! Cooldown active."
+            SubmitUI.Submitted.Visible = true
+            task.delay(30, function()
+                debounce = false
+            end)
+        end
+    end
+    
+end)
 
 UI.LoadPackage.MouseButton1Click:Connect(function()
     local response = httpService:PostAsync(apiURL .. "/download", httpService:JSONEncode({
