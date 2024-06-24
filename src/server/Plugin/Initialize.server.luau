@@ -104,6 +104,8 @@ function refresh()
 	scrollingFrame.CanvasSize = UDim2.new(0, 0, 0.25, constraint.AbsoluteContentSize.Y)
 end
 
+LibrariesUI.Refresh.MouseButton1Click:Connect(refresh)
+
 refresh()
 local function selectionChange()
     local package = selection:Get()[1]
