@@ -87,7 +87,14 @@ function refresh()
                 location.Name = "LibMgrPackages"
             end
 
-            serializer:Deserialize(library.Serialized, location)
+            local DeserializedLib = serializer:Deserialize(library.Serialized, location)
+
+            if DeserializedLib:IsA("BaseScript") then
+                plugin:OpenScript(DeserializedLib)
+            else
+                selection:Add({DeserializedLib})
+            end
+
             browseWidget.Enabled = false
         end))
     end
