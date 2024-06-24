@@ -76,8 +76,8 @@ function refresh()
         template.Name = "Library"
         template.Title.Text = library.Name
         template.Description.Text = library.Description
-        template.Author.Text = library.Author
-        
+        template.Author.Text = "Made by " .. library.Author
+
         table.insert(installConnections, template.Install.MouseButton1Click:Connect(function()
             local location
             if game.ReplicatedStorage:FindFirstChild("LibMgrPackages") then
