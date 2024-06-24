@@ -69,6 +69,10 @@ function refresh()
 
     if not libs then return end
 
+    table.sort(libs, function(a, b)
+        return a.Downloads < b.Downloads
+    end)
+
     for _,library in pairs(libs) do
         local template = LibrariesUI.Libraries.Template:Clone()
         template.Parent = LibrariesUI.Libraries
