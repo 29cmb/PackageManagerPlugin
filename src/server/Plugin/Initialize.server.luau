@@ -88,11 +88,10 @@ function refresh()
             end
 
             local DeserializedLib = serializer:Deserialize(library.Serialized, location)
-
-            if DeserializedLib:IsA("BaseScript") then
+            selection:Add({DeserializedLib})
+            
+            if DeserializedLib:IsA("Script") or DeserializedLib:IsA("ModuleScript") then
                 plugin:OpenScript(DeserializedLib)
-            else
-                selection:Add({DeserializedLib})
             end
 
             browseWidget.Enabled = false
